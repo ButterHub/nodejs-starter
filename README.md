@@ -1,4 +1,5 @@
 # Node with SSL reverse proxy setup
+`index.js` can be your own nodeJS server. I am using it as a facebook messenger bot.
 ## Technologies
 - [NGINX](https://www.nginx.com/resources/wiki/start/) for reverse proxy to NodeJS server, to allow SSL to be separated from NodeJS
     - I will add load balancing functionality in the future too.
