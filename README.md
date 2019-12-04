@@ -16,6 +16,8 @@
 - Ensure NodeJS server and NGINX server are running
     - NGINX: `sudo systemctl nginx enable`, then `sudo systemctl nginx start`
     - NodeJS (using pm2): `pm2 startup`, then run provided command
+    - Run server manually: `pm2 start index.js`
 - To disable
     - NGINX: `sudo systemctl nginx disable`, then `sudo systemctl nginx stop`
     - NodeJS: `pm2 unstartup`, then run provided command.
+    - Stop server manually: `pm2 ps`, then `pm2 stop [id]`
