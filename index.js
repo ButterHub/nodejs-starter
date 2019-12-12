@@ -1,6 +1,8 @@
 'use strict'
 
-const app = require('express')()
+const express = require('express')
+const app = express()
+const path = require('path')
 const bodyParser = require('body-parser')
 const { handleMessage, handlePostback } = require('./handlers')
 require('dotenv').config()
@@ -11,10 +13,37 @@ app.use(bodyParser.urlencoded({ extended: true }))
 const  VERIFY_TOKEN = process.env.TOKEN;
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
-app.get('/', (req, res) => {
+app.get('/ip', (req, res) => {
     // console.log({req})
     res.send(req.headers["x-real-ip"]);
 })
+
+app.use('/', express.static(path.join(__dirname, "assets")))
+
+// store information in database
+
+app.get('/', (req, res) => {
+    res.send([
+        {
+            id: '0',
+            photo: {
+                uri: 'https://orth.uk/burger.jpg',
+            },
+            title: 'Burger and Chips',
+            price: "£19.2",
+            servings: '5x'
+        },
+        {
+            id: '1',
+            photo: {
+                uri: 'https://orth.uk/lobster.jpg',
+            },
+            title: 'Lobster and Chips',
+            price: "£89.2",
+            servings: '5x'
+        }
+    ]);
+});
 
 // Adds support for GET requests to our webhook
 app.get('/webhook', (req, res) => {
