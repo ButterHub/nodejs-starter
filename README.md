@@ -12,7 +12,7 @@
     - `sudo apt install node nginx`
     - `npm i -g pm2`
     - Follow [installation instructions for certbot](https://certbot.eff.org/instructions).
-- Configure nginx as node reverse proxy [example code](https://github.com/Juriy/easyio/blob/master/conf/1-reverse-proxy/nginx/conf.d/nanogram.io.conf).
+- Configure nginx as node reverse proxy [example code](https://github.com/Juriy/easyio/blob/master/conf/1-reverse-proxy/nginx/conf.d/nanogram.io.conf): or just edit `/etc/nginx/sites-available/default` to have only: 
 - Run `sudo certbot`, and supply the correct information to set up SSL certs
 - Ensure NodeJS server and NGINX server are running
     - NGINX: `sudo systemctl nginx enable`, then `sudo systemctl nginx start`
