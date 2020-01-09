@@ -7,13 +7,19 @@
 - [NodeJS](https://nodejs.org/en/) for application
 - [PM2](https://www.npmjs.com/package/pm2) for NodeJS process management (restarting on crash, etc)
 
-## Steps
-- Install depedencies: node, certbot, nginx, pm2
-    - `sudo apt install node nginx`
-    - `npm i -g pm2`
-    - Follow [installation instructions for certbot](https://certbot.eff.org/instructions).
-- Configure nginx as node reverse proxy [example code](https://github.com/Juriy/easyio/blob/master/conf/1-reverse-proxy/nginx/conf.d/nanogram.io.conf): or just edit `/etc/nginx/sites-available/default` to have only: 
-- Run `sudo certbot`, and supply the correct information to set up SSL certs
+## Steps: quick way to create them. Any problems? see the guides linked. Tested on Ubuntu 18.04
+- Install depedencies
+    - Install node with [nvm](https://github.com/nvm-sh/nvm#installation-and-update)
+      - `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash`
+      - `nvm install node`
+    - Get nginx if it wasn't preinstalled: `sudo apt install nginx`
+    - `npm i -g pm2` to manage node processes for scaling
+- Configure server block for nginx as below. [or read Digital Ocean Guide](https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-16-04)
+  - Create new `example.com` file in `/etc/nginx/sites-available` with correct nginx server block, see [example](./examples/example.com). 
+  - Create `example.com` soft link from `/etc/nginx/sites-enabled` to `/etc/nginx/sites-available` by running `sudo ln -s ../sites-available/example.com example.com`
+- Follow [installation instructions for certbot](https://certbot.eff.org/instructions).
+  - Point a domain (.e.g example.com) to the server/ nginx.
+  - Or just do: `sudo certbot --nginx -d example.com -d www.example.com`
 - Ensure NodeJS server and NGINX server are running
     - NGINX: `sudo systemctl nginx enable`, then `sudo systemctl nginx start`
     - NodeJS (using pm2): `pm2 startup`, then run provided command
